@@ -1,0 +1,45 @@
+﻿<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/index.css" />
+    <script src="/script/index.js"></script>
+</head>
+    <body>
+        <div id='app' v-cloak>
+            <div class="nav" v-bind:class="{bottom_shadow:IsShadow}">
+                <div class="container-fluid">
+                    <div class="row nav-menu">
+                        <div class="col-lg-2 col-lg-offset-2">
+                            <p class="nav-text">{{WebsiteName}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3" >
+                            <button class="button-main">{{Lang.btnCreate|LangCheck}}</button>
+                            <ul class="menu">
+                                <li><a href="#"><img src="/res/message.png" />{{Lang.allArticle}}</a></li>
+                                <li><a href="#"><img src="/res/tag.png"/>{{Lang.allTag}}</a></li>
+                                <li></li>
+                                <li v-for="area in AreaInfo"><a href="#"><div class="li-tag" v-bind:style="{'background-color':getColor(area)}"></div>{{area.name}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-9" style="background-color:darkgrey">
+                            22222
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div v-for="count in 100">{{count}}!<br /></div>-->
+        </div>
+    </body>
+</html>

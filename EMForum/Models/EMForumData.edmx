@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EMForumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="areaInfo">
+          <Key>
+            <PropertyRef Name="areaId" />
+          </Key>
+          <Property Name="areaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="isEnable" Type="int" />
+        </EntityType>
+        <EntityType Name="articleInfo">
+          <Key>
+            <PropertyRef Name="articleId" />
+          </Key>
+          <Property Name="articleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userId" Type="int" />
+          <Property Name="areaId" Type="int" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="content" Type="text" />
+          <Property Name="visitedNum" Type="int" />
+          <Property Name="isEnable" Type="int" />
+        </EntityType>
+        <EntityType Name="userInfo">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="isEnable" Type="int" />
+        </EntityType>
+        <Association Name="FK__articleIn__areaI__09DE7BCC">
+          <End Role="areaInfo" Type="Self.areaInfo" Multiplicity="0..1" />
+          <End Role="articleInfo" Type="Self.articleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="areaInfo">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="articleInfo">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__articleIn__userI__08EA5793">
+          <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
+          <End Role="articleInfo" Type="Self.articleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userInfo">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="articleInfo">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EMForumModelStoreContainer">
+          <EntitySet Name="areaInfo" EntityType="Self.areaInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="articleInfo" EntityType="Self.articleInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__articleIn__areaI__09DE7BCC" Association="Self.FK__articleIn__areaI__09DE7BCC">
+            <End Role="areaInfo" EntitySet="areaInfo" />
+            <End Role="articleInfo" EntitySet="articleInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__articleIn__userI__08EA5793" Association="Self.FK__articleIn__userI__08EA5793">
+            <End Role="userInfo" EntitySet="userInfo" />
+            <End Role="articleInfo" EntitySet="articleInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EMForumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="areaInfo">
+          <Key>
+            <PropertyRef Name="areaId" />
+          </Key>
+          <Property Name="areaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isEnable" Type="Int32" />
+          <NavigationProperty Name="articleInfo" Relationship="Self.FK__articleIn__areaI__09DE7BCC" FromRole="areaInfo" ToRole="articleInfo" />
+        </EntityType>
+        <EntityType Name="articleInfo">
+          <Key>
+            <PropertyRef Name="articleId" />
+          </Key>
+          <Property Name="articleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="areaId" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="visitedNum" Type="Int32" />
+          <Property Name="isEnable" Type="Int32" />
+          <NavigationProperty Name="areaInfo" Relationship="Self.FK__articleIn__areaI__09DE7BCC" FromRole="articleInfo" ToRole="areaInfo" />
+          <NavigationProperty Name="userInfo" Relationship="Self.FK__articleIn__userI__08EA5793" FromRole="articleInfo" ToRole="userInfo" />
+        </EntityType>
+        <EntityType Name="userInfo">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="isEnable" Type="Int32" />
+          <NavigationProperty Name="articleInfo" Relationship="Self.FK__articleIn__userI__08EA5793" FromRole="userInfo" ToRole="articleInfo" />
+        </EntityType>
+        <Association Name="FK__articleIn__areaI__09DE7BCC">
+          <End Role="areaInfo" Type="Self.areaInfo" Multiplicity="0..1" />
+          <End Role="articleInfo" Type="Self.articleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="areaInfo">
+              <PropertyRef Name="areaId" />
+            </Principal>
+            <Dependent Role="articleInfo">
+              <PropertyRef Name="areaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__articleIn__userI__08EA5793">
+          <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
+          <End Role="articleInfo" Type="Self.articleInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="userInfo">
+              <PropertyRef Name="userId" />
+            </Principal>
+            <Dependent Role="articleInfo">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EMForumEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="areaInfo" EntityType="Self.areaInfo" />
+          <EntitySet Name="articleInfo" EntityType="Self.articleInfo" />
+          <EntitySet Name="userInfo" EntityType="Self.userInfo" />
+          <AssociationSet Name="FK__articleIn__areaI__09DE7BCC" Association="Self.FK__articleIn__areaI__09DE7BCC">
+            <End Role="areaInfo" EntitySet="areaInfo" />
+            <End Role="articleInfo" EntitySet="articleInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__articleIn__userI__08EA5793" Association="Self.FK__articleIn__userI__08EA5793">
+            <End Role="userInfo" EntitySet="userInfo" />
+            <End Role="articleInfo" EntitySet="articleInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EMForumModelStoreContainer" CdmEntityContainer="EMForumEntities">
+          <EntitySetMapping Name="areaInfo">
+            <EntityTypeMapping TypeName="EMForumModel.areaInfo">
+              <MappingFragment StoreEntitySet="areaInfo">
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="isEnable" ColumnName="isEnable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="articleInfo">
+            <EntityTypeMapping TypeName="EMForumModel.articleInfo">
+              <MappingFragment StoreEntitySet="articleInfo">
+                <ScalarProperty Name="articleId" ColumnName="articleId" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="areaId" ColumnName="areaId" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="visitedNum" ColumnName="visitedNum" />
+                <ScalarProperty Name="isEnable" ColumnName="isEnable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userInfo">
+            <EntityTypeMapping TypeName="EMForumModel.userInfo">
+              <MappingFragment StoreEntitySet="userInfo">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="isEnable" ColumnName="isEnable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

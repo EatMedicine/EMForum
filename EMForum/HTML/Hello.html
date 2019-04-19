@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>This is first page</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <style>
+        .test {
+            color: rgb(255, 0, 0);
+        }
+    </style>
+</head>
+<body>
+    <div id="data">
+        <h1>{{a}}</h1>
+        <h1>{{b}}</h1>
+        <h1>{{c}}</h1>
+        <h1>{{dddd()}}</h1>
+        <div v-html="message"></div>
+        <input type="checkbox" v-model="check" id="c1" />
+        <div v-bind:class="{'test':check}">????</div>
+        <p>{{text}}</p>
+        <input v-model="text" />
+        <p id="txt">{{textEdit}}</p>
+        <button @click="textEdit+='Y'">Click!</button>
+        <p :class="Test" v-for="name in names">{{name}}</p>
+        <div @click.ctrl="keyUp('2333')">do sth</div>
+        <button @keyup.enter="keyUp('233')">???</button>
+        <br />
+        <select v-model="selectData">
+            <option value="">选择网站</option>
+            <option value="www.baidu.com">百度</option>
+            <option value="www.google.com">谷歌</option>
+        </select>
+        <p>{{selectData}}</p>
+        <input type="checkbox" name="group1" value="复选1-1" id="1-1" v-model="checkData1" />
+        <label for="1-1">复选1-1</label>
+        <input type="checkbox" name="group1" value="复选1-2" id="1-2" v-model="checkData1" />
+        <label for="1-2">复选1-2</label>
+        <input type="checkbox" name="group1" value="复选1-3" id="1-3" v-model="checkData1" />
+        <label for="1-3">复选1-3</label>
+
+        <input type="checkbox" name="group2" value="复选2-1" id="2-1" v-model="checkData2" />
+        <label for="2-1">复选2-1</label>
+        <input type="checkbox" name="group2" value="复选2-2" id="2-2" v-model="checkData2" />
+        <label for="2-2">复选2-2</label>
+        <input type="checkbox" name="group2" value="复选2-3" id="2-3" v-model="checkData2" />
+        <label for="2-3">复选2-3</label>
+        <p>复选1：{{checkData1|noKuang}}</p>
+        <p>复选2：{{checkData2|noKuang}}</p>
+        <mycomponent :message1="checkData1|noKuang" :message2="checkData2|noKuang"></mycomponent>
+        <mycomponent message1="hhhhh"></mycomponent>
+    </div>
+    <script type="text/javascript">
+        Vue.component('mycomponent', {
+            props: {
+                message1: {
+                    type: String,
+                    required: true
+                },
+                message2: {
+                    type: String,
+                    required: false
+                }
+            },
+            template: '<div> {{message1}}23333{{message2}}</div>'
+        })
+        var vv = new Vue({
+            el: '#data',
+            data: {
+                a: "1",
+                b: "2",
+                c: "Hello EMForum",
+                message: "<h2>23333</h2>",
+                check: true,
+                text: "",
+                textEdit: "??",
+                names: [
+                    "a", "b", "c"
+                ],
+                selectData: '',
+                checkData1: [],
+                checkData2: []
+            },
+            methods: {
+                dddd: function () {
+                    return this.c + "!~~~~";
+                },
+                cccc: function () {
+                    return false;
+                },
+                keyUp: function (val) {
+                    alert("***"+val);
+                }
+            },
+            computed: {
+                Test: function () {
+                    return {
+                        test:false
+                    }
+                }
+            },
+            watch: {
+                text: function (val) {
+                    this.textEdit = val + "qaq";
+                    this.text = val;
+                }
+            },
+            filters: {
+                noKuang: function (val) {
+                    if (val == '') {
+                        return '';
+                    }
+                    else {
+                        return val;
+                    }
+                }
+            }
+        });
+        vv.$watch('text', function (newValue, oldValue) {
+            this.a = oldValue + "???";
+
+        })
+
+    </script>
+</body>
+</html>
