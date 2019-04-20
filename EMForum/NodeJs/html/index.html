@@ -33,11 +33,23 @@
                                 <li v-for="area in AreaInfo"><a href="#"><div class="li-tag" v-bind:style="{'background-color':getColor(area)}"></div>{{area.name}}</a></li>
                             </ul>
                         </div>
-                        <div class="col-lg-9" style="background-color:darkgrey">
-                            22222
+                        <div class="col-lg-9">
+                            <div class="container-fluid article-list" >
+                                <div class="row">
+                                    <div class="col-lg-3" style="padding-left:0">
+                                        <button class="select-btn">Lastest</button>
+                                    </div>
+                                    <div class="col-lg-1 col-lg-offset-8">
+                                        <button class="select-btn" style="width:40px">刷新</button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top:20px;background-color:gray">
+                                    11111
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
             <!--<div v-for="count in 100">{{count}}!<br /></div>-->
         </div>
