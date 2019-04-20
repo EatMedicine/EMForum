@@ -39,5 +39,5 @@
     });
     vm.getWebData();
     vm.getLangData();
-    //vm.getAreaInfo();
+    vm.getAreaInfo();
 };
