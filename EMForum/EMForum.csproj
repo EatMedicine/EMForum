@@ -210,6 +210,7 @@
       <LastGenOutput>EMForumData.cs</LastGenOutput>
     </Content>
     <Content Include="NodeJs\html\index.html" />
+    <Content Include="NodeJs\html\testUpload.html" />
     <Content Include="NodeJs\res\css\index.css" />
     <Content Include="NodeJs\res\picture\message.png" />
     <Content Include="NodeJs\res\picture\tag.png" />
@@ -258,6 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="NodeJs\uploads\" />
     <Folder Include="Views\Api\" />
   </ItemGroup>
   <ItemGroup>

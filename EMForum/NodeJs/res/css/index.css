@@ -2,11 +2,14 @@
     font-family:DengXian;
 }
 a:link{
-    color:black;
+    color:rgb(100, 100, 100);
     text-decoration:none;
 }
+ul{
+    list-style-type:none;
+}
 a:visited {
-    color: black;
+    color:rgb(100, 100, 100);
     text-decoration: none;
 }
 a:hover {
@@ -19,6 +22,10 @@ a:active {
 }
 [v-cloak] {
     display: none;
+}
+.container-fluid{
+    padding-left:0px;
+    padding-right:0px;
 }
 .middle {
     float: none;
@@ -39,12 +46,28 @@ a:active {
     height:80px;
 }
 .nav-text {
+    display:inline-block;
     line-height: 80px;
     font-size: 20px;
     margin: 0px;
     color: rgb(84, 81, 255);
     font-weight: bold;
-    font-size: 20px
+    font-size: 20px;
+    transition:all linear 0.2s
+}
+.nav-text:hover{
+    text-decoration:underline;
+}
+.nav-button button{
+    background-color:transparent;
+    outline:none;
+    border:0;
+    height:50px;
+    margin:15px 0px;
+    transition:all linear 0.2s;
+}
+.nav-button button:hover{
+    color:rgb(255, 105, 43);
 }
 .main {
     width: 66%;
@@ -81,6 +104,10 @@ a:active {
     height:30px;
     padding-left:0px;
     line-height:30px;
+    margin:10px 0px;
+}
+.menu a{
+    transition: color linear 0.2s;
 }
 .li-tag {
     display: inline-block;
@@ -96,14 +123,152 @@ a:active {
     width:100%;
     margin:0 auto;
 }
-.select-btn{
-    width:100px;
-    height:40px;
-    border:0px;
-    border-radius:3px 3px;
-    background-color:rgb(242, 242, 242);
-    outline:none;
+.select-btn {
+    width: 100px;
+    height: 40px;
+    border: 0px;
+    border-radius: 3px 3px;
+    background-color: rgb(242, 242, 242);
+    outline: none;
+    transition: background-color linear 0.2s;
+}
+.select-btn:hover{
+    background-color:rgb(231, 231, 231)
 }
 .select-btn:active{
     box-shadow:0px 1px 20px rgb(220, 220, 220) inset;
 }
+.list li:first-child{
+    margin-top:20px;
+}
+.list-item{
+    height:60px;
+    border-radius:5px 5px;
+    padding:10px 20px;
+    margin-bottom:2px;
+    transition: background-color linear 0.2s;
+}
+.list-item:hover{
+    background-color:rgb(245, 245, 245);
+    cursor:pointer;
+}
+.drop-menu{
+    position:absolute;
+    top:100%;
+    background-color:white;
+    box-shadow:1px 1px 5px rgb(132, 132, 132);
+    margin-top:10px;
+    padding-left:0;
+    border-radius:3px 3px;
+}
+.drop-menu li{
+    height:30px;
+    width:120px;
+    padding:5px 10px;
+    padding-left:30px;
+    transition: background-color linear 0.2s;
+    cursor:default;
+}
+.drop-menu li:hover{
+    background-color:rgb(245, 245, 245);
+}
+.drop-menu li:active{
+    background-color:rgb(230, 230, 230);
+}
+.drop-menu li:first-child{
+    margin-top:10px;
+}
+.drop-menu li:last-child{
+    margin-bottom:10px;
+}
+.unselect {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.mask{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(94, 94, 94,0.6);
+    z-index:1003;
+}
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+}
+
+.fade-enter, .fade-leave-active {
+    opacity: 0
+}
+.sign {
+    position: absolute;
+    top: 20%;
+    left: 37.5%;
+    width: 25%;
+    background-color: white;
+    border-radius: 3px 3px;
+    box-shadow:1px 1px 5px rgb(59, 59, 59);
+}
+.sign-close{
+    position:absolute;
+    top:0;
+    right:0;
+}
+.sign-close button{
+    width:30px;
+    height:30px;
+    outline:none;
+    border:0;
+    background-color:transparent;
+    transition:color linear 0.2s;
+}
+.sign-close button:hover{
+    color:rgb(255, 105, 43);
+}
+.sign-title{
+    width:100%;
+    padding:10px 10px;
+}
+.sign-form{
+    width:100%;
+    background-color:rgb(235, 235, 235);
+    padding:10px 10%;
+}
+.sign-form form{
+    margin-bottom:0px;
+}
+.sign-form input{
+    width:80%;
+    height:40px;
+    margin:10px 10%;
+    outline:0px;
+    border:0;
+    border-radius:4px;
+    font-size:20px;
+    text-align:center;
+    transition:all linear 0.1s;
+}
+.sign-form input:focus{
+    outline:2px solid rgb(255, 105, 43);
+    outline
+}
+.sign-submit{
+    background-color:rgb(75, 137, 251);
+    color:white;
+    transition:all linear 0.2s;
+}
+.sign-submit:hover{
+    background-color:rgb(51, 122, 253);
+}
+.sign-submit:active{
+    background-color:rgb(29, 108, 252);
+}
+.sign-foot {
+    width: 100%;
+    background-color: white;
+    padding: 10px 10px;
+    text-align:center;
+}
+

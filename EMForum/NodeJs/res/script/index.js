@@ -5,7 +5,12 @@
             WebsiteName: "",
             IsShadow: false,
             Lang: {},
-            AreaInfo: {}
+            AreaInfo: {},
+            IsSortMenuDis: false,
+            LoginStatus: false,
+            IsMask: false,
+            IsSign: false,
+            IsLogin: false
         },
         methods: {
             getWebData: function () {

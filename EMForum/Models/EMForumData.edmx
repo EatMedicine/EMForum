@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EMForumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EMForumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="areaInfo">
           <Key>
             <PropertyRef Name="areaId" />
@@ -31,9 +31,10 @@
           </Key>
           <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="userHeaderPic" Type="nvarchar" MaxLength="200" />
           <Property Name="isEnable" Type="int" />
         </EntityType>
-        <Association Name="FK__articleIn__areaI__09DE7BCC">
+        <Association Name="FK__articleIn__areaI__15502E78">
           <End Role="areaInfo" Type="Self.areaInfo" Multiplicity="0..1" />
           <End Role="articleInfo" Type="Self.articleInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -45,7 +46,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__articleIn__userI__08EA5793">
+        <Association Name="FK__articleIn__userI__145C0A3F">
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <End Role="articleInfo" Type="Self.articleInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -61,17 +62,16 @@
           <EntitySet Name="areaInfo" EntityType="Self.areaInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="articleInfo" EntityType="Self.articleInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__articleIn__areaI__09DE7BCC" Association="Self.FK__articleIn__areaI__09DE7BCC">
+          <AssociationSet Name="FK__articleIn__areaI__15502E78" Association="Self.FK__articleIn__areaI__15502E78">
             <End Role="areaInfo" EntitySet="areaInfo" />
             <End Role="articleInfo" EntitySet="articleInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__articleIn__userI__08EA5793" Association="Self.FK__articleIn__userI__08EA5793">
+          <AssociationSet Name="FK__articleIn__userI__145C0A3F" Association="Self.FK__articleIn__userI__145C0A3F">
             <End Role="userInfo" EntitySet="userInfo" />
             <End Role="articleInfo" EntitySet="articleInfo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EMForumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -106,6 +106,7 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="isEnable" Type="Int32" />
           <NavigationProperty Name="articleInfo" Relationship="Self.FK__articleIn__userI__08EA5793" FromRole="userInfo" ToRole="articleInfo" />
+          <Property Name="userHeaderPic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__articleIn__areaI__09DE7BCC">
           <End Role="areaInfo" Type="Self.areaInfo" Multiplicity="0..1" />
@@ -175,6 +176,7 @@
           <EntitySetMapping Name="userInfo">
             <EntityTypeMapping TypeName="EMForumModel.userInfo">
               <MappingFragment StoreEntitySet="userInfo">
+                <ScalarProperty Name="userHeaderPic" ColumnName="userHeaderPic" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="isEnable" ColumnName="isEnable" />

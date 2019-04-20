@@ -1,5 +1,13 @@
 {
     "btnCreate": "创建话题",
     "allArticle": "全部话题",
-    "allTag": "全部标签"
+    "allTag": "全部标签",
+    "loginIn": "登录",
+    "signUp": "注册",
+    "username": "用户名",
+    "password": "密码",
+    "email": "邮箱",
+    "forgetPsw": "忘记密码",
+    "refresh":"刷新"
+
 }
