@@ -76,6 +76,7 @@ app.post('/signup',function(req,res){
         }
         res.end(JSON.stringify(response))
     }
+    
     res.end()
 })
 
