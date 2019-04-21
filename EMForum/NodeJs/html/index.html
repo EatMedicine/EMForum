@@ -22,10 +22,12 @@
                             <h3 class="text-center">{{Lang.signUp|LangCheck}}</h3>
                         </div>
                         <div class="sign-form">
-                            <form>
-                                <input type="text" name="username" :placeholder="Lang.username|LangCheck" />
-                                <input type="password" name="password" :placeholder="Lang.password|LangCheck" />
-                                <input type="email" name="email" :placeholder="Lang.email|LangCheck" />
+                            <!--注册-->
+                            <form autocomplete="off" @submit.prevent="signUp">
+                                <input type="text" name="username" v-model="SignUpData.username"  :placeholder="Lang.username|LangCheck" />
+                                <input type="password" name="password" v-model="SignUpData.password"  :placeholder="Lang.password|LangCheck" />
+                                <input type="email" name="email" v-model="SignUpData.email" :placeholder="Lang.email|LangCheck" />
+                                <p class="text-center" v-if="IsSignError" style="margin-bottom:0;color:red">{{Lang.ErrorMsg.SignUp|LangCheck}}</p>
                                 <input class="sign-submit" type="submit" style="outline:none" :value="Lang.signUp|LangCheck"/>
                             </form>
                         </div>
@@ -41,9 +43,10 @@
                             <h3 class="text-center">{{Lang.loginIn|LangCheck}}</h3>
                         </div>
                         <div class="sign-form">
+                            <!--登录-->
                             <form>
-                                <input type="text" name="username" :placeholder="Lang.username|LangCheck" />
-                                <input type="password" name="password" :placeholder="Lang.password|LangCheck" />
+                                <input type="text" name="username" autocomplete="off" :placeholder="Lang.username|LangCheck" />
+                                <input type="password" name="password" autocomplete="off" :placeholder="Lang.password|LangCheck" />
                                 <input class="sign-submit" type="submit" style="outline:none" :value="Lang.loginIn|LangCheck"/>
                             </form>
                         </div>
@@ -86,10 +89,12 @@
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="padding-left:0">
                                         <button @click="IsSortMenuDis=!IsSortMenuDis" class="select-btn">Lastest</button>
-                                        <ul class="drop-menu unselect" v-if="IsSortMenuDis">
-                                            <li>23333</li>
-                                            <li>2333</li>
-                                        </ul>
+                                        <transition name="fade">
+                                            <ul class="drop-menu unselect" v-if="IsSortMenuDis">
+                                                <li>23333</li>
+                                                <li>2333</li>
+                                            </ul>
+                                        </transition>
                                     </div>
                                     <div class="col-lg-1 col-lg-offset-8 col-md-1 col-md-offset-8 col-xs-1 col-xs-offset-8 col-sm-1 col-sm-offset-8">
                                         <button class="select-btn" style="width:40px">{{Lang.refresh|LangCheck}}</button>

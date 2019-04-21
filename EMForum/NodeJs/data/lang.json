@@ -8,6 +8,8 @@
     "password": "密码",
     "email": "邮箱",
     "forgetPsw": "忘记密码",
-    "refresh":"刷新"
-
+    "refresh":"刷新",
+    "ErrorMsg":{
+        "SignUp": "未填写注册信息"
+    }
 }
