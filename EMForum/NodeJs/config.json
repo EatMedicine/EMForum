@@ -1,3 +1,4 @@
 {
-    "remoteServer": "http://localhost:14832/"
+    "remoteServer": "http://localhost:14832/",
+    "localhost": "http://127.0.0.1:23333/"
 }

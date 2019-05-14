@@ -25,6 +25,8 @@ CREATE TABLE userInfo
 (
 	userId INT PRIMARY KEY IDENTITY(1, 1),
 	name NVARCHAR(50),
+	psw NVARCHAR(50),
+	email NVARCHAR(100),
 	userHeaderPic NVARCHAR(200),	--用户头像地址
 	isEnable INT, --0关闭 1启用
 )

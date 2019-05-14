@@ -16,7 +16,8 @@
                 "password": "",
                 "email": ""
             },
-            IsSignError: false
+            IsSignError: false,
+            SignErrorMsg: ""
         },
         methods: {
             getWebData: function () {
@@ -39,27 +40,51 @@
                 return 'rgb(' + areaInfo.R + ',' + areaInfo.G + ',' + areaInfo.B + ')';
             },
             signUp: function () {
-                alert(this.SignUpData.username + "|" + this.SignUpData.password + "|" + this.SignUpData.email);
+                //alert(this.SignUpData.username + "|" + this.SignUpData.password + "|" + this.SignUpData.email);
                 var bool = this.IsEmail(this.SignUpData.email);
                 if (!bool) {
-                    alert("邮箱格式出错");
+                    alert(this.Lang.ErrorMsg.EmailFormatError);
                     return false;
                 }
                 if (this.SignUpData.username === "" ||
                     this.SignUpData.password === "" ||
                     this.SignUpData.email === "") {
+                    this.SignErrorMsg = this.Lang.ErrorMsg.SignUpInfoMiss;
                     this.IsSignError = true;
                     return false;
                 }
                 var data = {
-                    username: this.SignUpData.username,
-                    password: this.SignUpData.password,
-                    email: this.SignUpData.email
+                    username: this.SignUpData.username
                 };
-                this.$http.post('/signup', data, { emulateJSON: true }).then(function (res) {
-                    console.log(res.body);
+                this.$http.post('/haveuser', data, { emulateJSON: true }).then(function (res) {
+                    if (res.body.status === false) {
+                        this.SignErrorMsg = this.Lang.ErrorMsg.UsernameExist;
+                        this.IsSignError = true;
+                        this.isExist = false;
+                        return;
+                    }
+                    data = {
+                        username: this.SignUpData.username,
+                        password: this.SignUpData.password,
+                        email: this.SignUpData.email
+                    };
+                    this.$http.post('/signup', data, { emulateJSON: true }).then(function (res) {
+                        if (res.body.status === 3) {
+                            alert(this.Lang.ErrorMsg.SignUpSuccess);
+                        }
+                        else {
+                            alert(this.Lang.ErrorMsg.SignUpFail);
+                        }
+                    });
+                    //清空
+                    this.SignUpData.username = "";
+                    this.SignUpData.password = "";
+                    this.SignUpData.email = "";
+                    this.IsMask = false;
+                    this.IsSign = false;
+                    return true;
                 });
-                return true;
+
             },
             IsEmail: function (email) {
                 var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
@@ -71,7 +96,7 @@
         },
         filters: {
             LangCheck: function (val) {
-                if (!val) return 'MISSLANG';
+                if (!val) return 'MISS_LANG';
                 return val;
             }
         }

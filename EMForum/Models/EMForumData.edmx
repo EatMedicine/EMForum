@@ -31,10 +31,12 @@
           </Key>
           <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="psw" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
           <Property Name="userHeaderPic" Type="nvarchar" MaxLength="200" />
           <Property Name="isEnable" Type="int" />
         </EntityType>
-        <Association Name="FK__articleIn__areaI__15502E78">
+        <Association Name="FK__articleIn__areaI__29572725">
           <End Role="areaInfo" Type="Self.areaInfo" Multiplicity="0..1" />
           <End Role="articleInfo" Type="Self.articleInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -46,7 +48,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__articleIn__userI__145C0A3F">
+        <Association Name="FK__articleIn__userI__286302EC">
           <End Role="userInfo" Type="Self.userInfo" Multiplicity="0..1" />
           <End Role="articleInfo" Type="Self.articleInfo" Multiplicity="*" />
           <ReferentialConstraint>
@@ -62,11 +64,11 @@
           <EntitySet Name="areaInfo" EntityType="Self.areaInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="articleInfo" EntityType="Self.articleInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="userInfo" EntityType="Self.userInfo" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__articleIn__areaI__15502E78" Association="Self.FK__articleIn__areaI__15502E78">
+          <AssociationSet Name="FK__articleIn__areaI__29572725" Association="Self.FK__articleIn__areaI__29572725">
             <End Role="areaInfo" EntitySet="areaInfo" />
             <End Role="articleInfo" EntitySet="articleInfo" />
           </AssociationSet>
-          <AssociationSet Name="FK__articleIn__userI__145C0A3F" Association="Self.FK__articleIn__userI__145C0A3F">
+          <AssociationSet Name="FK__articleIn__userI__286302EC" Association="Self.FK__articleIn__userI__286302EC">
             <End Role="userInfo" EntitySet="userInfo" />
             <End Role="articleInfo" EntitySet="articleInfo" />
           </AssociationSet>
@@ -107,6 +109,8 @@
           <Property Name="isEnable" Type="Int32" />
           <NavigationProperty Name="articleInfo" Relationship="Self.FK__articleIn__userI__08EA5793" FromRole="userInfo" ToRole="articleInfo" />
           <Property Name="userHeaderPic" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="psw" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__articleIn__areaI__09DE7BCC">
           <End Role="areaInfo" Type="Self.areaInfo" Multiplicity="0..1" />
@@ -176,6 +180,8 @@
           <EntitySetMapping Name="userInfo">
             <EntityTypeMapping TypeName="EMForumModel.userInfo">
               <MappingFragment StoreEntitySet="userInfo">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="psw" ColumnName="psw" />
                 <ScalarProperty Name="userHeaderPic" ColumnName="userHeaderPic" />
                 <ScalarProperty Name="userId" ColumnName="userId" />
                 <ScalarProperty Name="name" ColumnName="name" />

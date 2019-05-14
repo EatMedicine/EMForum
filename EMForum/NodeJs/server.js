@@ -24,6 +24,25 @@ var GetConfig = function(){
     return JSON.parse(fs.readFileSync("config.json"));
 }
 var config = GetConfig();
+var signList = [];
+
+var findRad = function(signList,radNum){
+    for(var count=0;count<signList.length;count++){
+        if(signList[count].radNum == radNum){
+            var tmp = signList[count];
+            signList.splice(count,1);
+            return tmp;
+        }
+    }
+    return false;
+}
+
+var GetRandom = function(n){
+    var rnd="";
+    for(var i=0;i<n;i++)
+        rnd+=Math.floor(Math.random()*10);
+    return rnd;
+}
 
 app.get('/',function(req,res){
     res.redirect('/forum/index.html');
@@ -65,20 +84,112 @@ app.post('/uploadimg',upload.single('image'),function(req,res,next){
     res.end(JSON.stringify(response));
 })
 
+//返回status代码 0为缺少参数 1为服务器连接失败 2为注册失败 3为注册成功
 app.post('/signup',function(req,res){
     var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
-    var response = {
+    var responseData = {
         status: false
     }
     if(!req.body.username||!req.body.password||!req.body.email||!reg.test(req.body.email)){
-        var response = {
-            status: 0
-        }
-        res.end(JSON.stringify(response))
+        responseData.status = 0;
+        res.end(JSON.stringify(responseData))
     }
-    
-    res.end()
-})
+    var url = config.remoteServer+"api/signup";
+    request.post(url,{
+        form:{
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email
+        }
+    },function(err,response,body){
+        if(err){
+            console.log(err);
+            responseData.status = 1;
+            res.end(JSON.stringify(responseData));
+            return;
+        }
+        if(body=="false"){
+            responseData.status = 2;
+            res.end(JSON.stringify(responseData));
+            return;
+        }
+        //发送邮件 ***语言自定义警告***
+        var tmp = GetRandom(6);
+        signList[signList.length]={
+            username: req.body.username,
+            password: req.body.password,
+            email: req.body.email,
+            radNum: tmp
+        }
+        sendMail.sendEmail(req.body.email,'EMForum账号激活','<h1>点击下面链接激活账号</h1><br/><a href="'+config.localhost+'activate/?radnum='+tmp+'">链接</a>');
+        console.log(body);
+        responseData.status = 3;
+        res.end(JSON.stringify(responseData));
+    })
+});
+app.get('/activate',function(req,res){
+    if(!req.query.radnum){
+        res.redirect('/');
+        return;
+    }
+    var data = findRad(signList,parseInt(req.query.radnum));
+    if(data == false){
+        res.redirect('/');
+        return;
+    }
+    //发送激活请求
+    console.log("发送激活请求:"+data);
+    //待写
+    var url = config.remoteServer+"api/activateuser";
+    request.post(url,{
+        form:{
+            username: data.username
+        }
+    },function(err,response,body){
+        if(err){
+            console.log(err);
+            res.end(false);
+            return;
+        }
+        if(body=="false"){
+            var result=`<script>alert('激活失败，请联系管理员');window.location.href="/"</script>`;
+            res.send(result);
+            return;
+        }
+        var result=`<script>alert('激活成功');window.location.href="/"</script>`;
+        res.send(result)
+    })
+});
+app.post('/haveuser',function(req,res){
+    if(!req.body.username){
+        res.end(false);
+    }
+    var url = config.remoteServer+"api/haveuser";
+
+    request.post(url,{
+        form:{
+            username: req.body.username
+        }
+    },function(err,response,body){
+        responseData = {
+            status: false
+        }
+        if(err){
+            console.log(err);
+            res.end(JSON.stringify(responseData));
+            return;
+        }
+        if(body=="false"){
+            res.end(JSON.stringify(responseData));
+            return;
+        }
+        else{
+            responseData.status = true;
+            res.end(JSON.stringify(responseData));
+            return;
+        }
+    })
+});
 
 var server = app.listen(23333,function(){
     console.log('Server running!');

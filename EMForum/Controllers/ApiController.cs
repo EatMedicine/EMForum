@@ -23,8 +23,39 @@ namespace EMForum.Controllers
         }
         public JsonResult SignUp(string username,string password,string email)
         {
-            
-            return Json(false, JsonRequestBehavior.AllowGet);
+            //添加用户名不能重复
+            userInfo[] list = SqlHelper.GetInfo<userInfo, int>(u => u.name == username, a => a.userId);
+            if (list.Length != 0)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            userInfo info = new userInfo
+            {
+                name = username,
+                psw = password,
+                email = email,
+                userHeaderPic = "/res/DefaultHead.jpg",
+                isEnable = 0
+            };
+            bool IsSuccess = SqlHelper.Insert<userInfo>(info);
+            return Json(IsSuccess, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult ActivateUser(string username)
+        {
+            userInfo tmp = new userInfo
+            {
+                name = username,
+                isEnable = 1
+            };
+            bool result = SqlHelper.UpdateUserInfo(tmp, u => u.name == username, "isEnable");
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult HaveUser(string username)
+        {
+            userInfo[] list = SqlHelper.GetInfo<userInfo, int>(u => u.name == username, a => a.userId);
+            return Json(list.Length == 0, JsonRequestBehavior.AllowGet);
         }
     }
 }

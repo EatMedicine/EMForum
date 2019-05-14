@@ -27,7 +27,7 @@
                                 <input type="text" name="username" v-model="SignUpData.username"  :placeholder="Lang.username|LangCheck" />
                                 <input type="password" name="password" v-model="SignUpData.password"  :placeholder="Lang.password|LangCheck" />
                                 <input type="email" name="email" v-model="SignUpData.email" :placeholder="Lang.email|LangCheck" />
-                                <p class="text-center" v-if="IsSignError" style="margin-bottom:0;color:red">{{Lang.ErrorMsg.SignUp|LangCheck}}</p>
+                                <p class="text-center" v-if="IsSignError" style="margin-bottom:0;color:red">{{SignErrorMsg|LangCheck}}</p>
                                 <input class="sign-submit" type="submit" style="outline:none" :value="Lang.signUp|LangCheck"/>
                             </form>
                         </div>

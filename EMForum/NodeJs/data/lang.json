@@ -10,6 +10,10 @@
     "forgetPsw": "忘记密码",
     "refresh":"刷新",
     "ErrorMsg":{
-        "SignUp": "未填写注册信息"
+        "SignUpInfoMiss": "未填写注册信息",
+        "SignUpFail": "注册失败，请联系管理员",
+        "SignUpSuccess": "注册成功，请前往邮箱查看激活邮件（可能在垃圾桶内）",
+        "EmailFormatError": "邮箱格式错误",
+        "UsernameExist": "用户名已存在"
     }
 }

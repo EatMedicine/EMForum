@@ -9,10 +9,10 @@ var GetAuth = function(){
 }
 
 var GetMailInfo = function(to,title,html){
-    var file = fs.readFile('mailConfig.json');
+    var file = fs.readFileSync('mailConfig.json');
     var result = JSON.parse(file);
     return {
-        from: result.MailName +result.MailAddress,
+        from: result.MailName +"<"+result.MailAddress+">",
         to: to,
         subject: title,
         text: "hello",
