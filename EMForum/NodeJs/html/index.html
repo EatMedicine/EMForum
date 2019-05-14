@@ -12,11 +12,61 @@
 </head>
     <body>
         <div id='app' v-cloak>
+            <transition name="fade">
+                <div class="mask" v-if="IsMask">
+                    <div class="sign" v-if="IsSign">
+                        <div class="sign-close">
+                            <button @click="IsMask=false;IsSign=false">X</button>
+                        </div>
+                        <div class="sign-title">
+                            <h3 class="text-center">{{Lang.signUp|LangCheck}}</h3>
+                        </div>
+                        <div class="sign-form">
+                            <!--注册-->
+                            <form autocomplete="off" @submit.prevent="signUp">
+                                <input type="text" name="username" v-model="SignUpData.username"  :placeholder="Lang.username|LangCheck" />
+                                <input type="password" name="password" v-model="SignUpData.password"  :placeholder="Lang.password|LangCheck" />
+                                <input type="email" name="email" v-model="SignUpData.email" :placeholder="Lang.email|LangCheck" />
+                                <p class="text-center" v-if="IsSignError" style="margin-bottom:0;color:red">{{SignErrorMsg|LangCheck}}</p>
+                                <input class="sign-submit" type="submit" style="outline:none" :value="Lang.signUp|LangCheck"/>
+                            </form>
+                        </div>
+                        <div class="sign-foot">
+                            <a href="#" style="margin:0">{{Lang.forgetPsw|LangCheck}}</a>
+                        </div>
+                    </div>
+                    <div class="sign" v-if="IsLogin">
+                        <div class="sign-close">
+                            <button @click="IsMask=false;IsLogin=false">X</button>
+                        </div>
+                        <div class="sign-title">
+                            <h3 class="text-center">{{Lang.loginIn|LangCheck}}</h3>
+                        </div>
+                        <div class="sign-form">
+                            <!--登录-->
+                            <form>
+                                <input type="text" name="username" autocomplete="off" :placeholder="Lang.username|LangCheck" />
+                                <input type="password" name="password" autocomplete="off" :placeholder="Lang.password|LangCheck" />
+                                <input class="sign-submit" type="submit" style="outline:none" :value="Lang.loginIn|LangCheck"/>
+                            </form>
+                        </div>
+                        <div class="sign-foot">
+                            <a href="#" style="margin:0">{{Lang.forgetPsw|LangCheck}}</a>
+                        </div>
+                    </div>
+                </div>
+            </transition>
             <div class="nav" v-bind:class="{bottom_shadow:IsShadow}">
                 <div class="container-fluid">
                     <div class="row nav-menu">
-                        <div class="col-lg-2 col-lg-offset-2">
-                            <p class="nav-text">{{WebsiteName}}</p>
+                        <div class="col-lg-2 col-lg-offset-2 col-md-2 col-md-offset-2 col-xs-2 col-xs-offset-2 col-sm-2 col-sm-offset-2">
+                            <a href="/"><p class="nav-text">{{WebsiteName}}</p></a>
+                        </div>
+                        <!--登录注册-->
+                        <div class="col-lg-2 col-lg-offset-5 col-md-2 col-md-offset-5 col-xs-2 col-xs-offset-5 col-sm-2 col-sm-offset-5 nav-button unselect" v-if="!LoginStatus">
+                            <button @click="IsMask=!IsMask;IsSign=true">{{Lang.signUp|LangCheck}}</button>
+                            /
+                            <button @click="IsMask=!IsMask;IsLogin=true">{{Lang.loginIn|LangCheck}}</button>
                         </div>
                     </div>
                 </div>
@@ -24,32 +74,45 @@
             <div class="main">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-3" >
+                        <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
                             <button class="button-main">{{Lang.btnCreate|LangCheck}}</button>
-                            <ul class="menu">
+                            <!--左侧栏-->
+                            <ul class="menu unselect">
                                 <li><a href="#"><img src="/res/message.png" />{{Lang.allArticle}}</a></li>
-                                <li><a href="#"><img src="/res/tag.png"/>{{Lang.allTag}}</a></li>
+                                <li><a href="#"><img src="/res/tag.png" />{{Lang.allTag}}</a></li>
                                 <li></li>
                                 <li v-for="area in AreaInfo"><a href="#"><div class="li-tag" v-bind:style="{'background-color':getColor(area)}"></div>{{area.name}}</a></li>
                             </ul>
                         </div>
-                        <div class="col-lg-9">
-                            <div class="container-fluid article-list" >
+                        <div class="col-lg-9 col-md-9 col-xs-9 col-sm-9">
+                            <div class="container-fluid article-list">
                                 <div class="row">
-                                    <div class="col-lg-3" style="padding-left:0">
-                                        <button class="select-btn">Lastest</button>
+                                    <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3" style="padding-left:0">
+                                        <button @click="IsSortMenuDis=!IsSortMenuDis" class="select-btn">Lastest</button>
+                                        <transition name="fade">
+                                            <ul class="drop-menu unselect" v-if="IsSortMenuDis">
+                                                <li>23333</li>
+                                                <li>2333</li>
+                                            </ul>
+                                        </transition>
                                     </div>
-                                    <div class="col-lg-1 col-lg-offset-8">
-                                        <button class="select-btn" style="width:40px">刷新</button>
+                                    <div class="col-lg-1 col-lg-offset-8 col-md-1 col-md-offset-8 col-xs-1 col-xs-offset-8 col-sm-1 col-sm-offset-8">
+                                        <button class="select-btn" style="width:40px">{{Lang.refresh|LangCheck}}</button>
                                     </div>
                                 </div>
-                                <div class="row" style="margin-top:20px;background-color:gray">
-                                    11111
-                                </div>
+                                <!--帖子列表-->
+                                <ul class="container-fluid list unselect">
+                                    <li class="row list-item">
+                                        111
+                                    </li>
+                                    <li class="row list-item">
+                                        111
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
             <!--<div v-for="count in 100">{{count}}!<br /></div>-->
         </div>

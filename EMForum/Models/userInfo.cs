@@ -23,6 +23,9 @@ namespace EMForum.Models
         public int userId { get; set; }
         public string name { get; set; }
         public Nullable<int> isEnable { get; set; }
+        public string userHeaderPic { get; set; }
+        public string psw { get; set; }
+        public string email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<articleInfo> articleInfo { get; set; }
