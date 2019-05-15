@@ -16,8 +16,13 @@
                 "password": "",
                 "email": ""
             },
+            LoginInData: {
+                "username": "",
+                "password": ""
+            },
             IsSignError: false,
-            SignErrorMsg: ""
+            SignErrorMsg: "",
+            LoginErrorMsg: ""
         },
         methods: {
             getWebData: function () {
@@ -57,7 +62,7 @@
                     username: this.SignUpData.username
                 };
                 this.$http.post('/haveuser', data, { emulateJSON: true }).then(function (res) {
-                    if (res.body.status === false) {
+                    if (res.body.status === true) {
                         this.SignErrorMsg = this.Lang.ErrorMsg.UsernameExist;
                         this.IsSignError = true;
                         this.isExist = false;
@@ -83,6 +88,33 @@
                     this.IsMask = false;
                     this.IsSign = false;
                     return true;
+                });
+
+            },
+            loginIn: function () {
+                if (this.LoginInData.username === "" ||
+                    this.LoginInData.password === "" ) {
+                    this.LoginErrorMsg = this.Lang.ErrorMsg.LoginInInfoMiss;
+                    this.IsSignError = true;
+                    return false;
+                }
+                var data = {
+                    username: this.LoginInData.username
+                };
+                this.$http.post('/haveuser', data, { emulateJSON: true }).then(function (res) {
+                    if (res.body.status === false) {
+                        this.SignErrorMsg = this.Lang.ErrorMsg.UsernameExist;
+                        this.IsSignError = true;
+                        this.isExist = false;
+                        return;
+                    }
+                    data = {
+                        username: this.LoginInData.username,
+                        password: this.LoginInData.password
+                    };
+                    this.$http.post('/loginin', data, { emulateJSON: true }).then(function (res) {
+                        
+                    });
                 });
 
             },

@@ -44,9 +44,9 @@
                         </div>
                         <div class="sign-form">
                             <!--登录-->
-                            <form>
-                                <input type="text" name="username" autocomplete="off" :placeholder="Lang.username|LangCheck" />
-                                <input type="password" name="password" autocomplete="off" :placeholder="Lang.password|LangCheck" />
+                            <form autocomplete="off" action="/loginin" method="post">
+                                <input type="text" name="username" v-model="LoginInData.username" autocomplete="off" :placeholder="Lang.username|LangCheck" />
+                                <input type="password" name="password" v-model="LoginInData.password" autocomplete="off" :placeholder="Lang.password|LangCheck" />
                                 <input class="sign-submit" type="submit" style="outline:none" :value="Lang.loginIn|LangCheck"/>
                             </form>
                         </div>

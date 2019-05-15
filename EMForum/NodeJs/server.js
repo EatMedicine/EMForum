@@ -9,9 +9,9 @@ var fs = require('fs');
 var path=require('path');
 var sendMail = require('./mail');
 var request = require('request');  
+var md5 = require('./tools')
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 app.use('/forum',express.static('html'));
 app.use('/data',express.static('data'));
@@ -25,6 +25,7 @@ var GetConfig = function(){
 }
 var config = GetConfig();
 var signList = [];
+app.use(cookieParser(config.cookieSalt));
 
 var findRad = function(signList,radNum){
     for(var count=0;count<signList.length;count++){
@@ -127,6 +128,36 @@ app.post('/signup',function(req,res){
         res.end(JSON.stringify(responseData));
     })
 });
+app.post('/loginin',function(req,res){
+    if(!req.body.username||!req.body.password){
+        res.send(`<script>alert('请填写账号密码');window.location.href="/"</script>`)
+        return;
+    }
+    var url = config.remoteServer+"api/loginin";
+    request.post(url,{
+        form:{
+            username: req.body.username,
+            password: req.body.password,
+        }
+    },function(err,response,body){
+        if(err){
+            console.log(err);
+            res.send(`<script>alert('服务器连接失败，请联系管理员');window.location.href="/"</script>`)
+            return;
+        }
+        if(body=="false"){
+            res.send(`<script>alert('账号或密码错误');window.location.href="/"</script>`)
+            return;
+        }
+        //识别正确 开始cookie
+        res.cookie('un',req.body.username,{signed:true});
+        var encryptText = md5.encrypt(req.body.username,config.salt);
+        res.cookie('identity',encryptText,{signed:true});
+        res.redirect('/');
+    })
+
+
+});
 app.get('/activate',function(req,res){
     if(!req.query.radnum){
         res.redirect('/');
@@ -180,6 +211,7 @@ app.post('/haveuser',function(req,res){
             return;
         }
         if(body=="false"){
+            responseData.status = false;
             res.end(JSON.stringify(responseData));
             return;
         }

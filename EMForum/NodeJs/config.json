@@ -1,4 +1,6 @@
 {
     "remoteServer": "http://localhost:14832/",
-    "localhost": "http://127.0.0.1:23333/"
+    "localhost": "http://127.0.0.1:23333/",
+    "cookieSalt": "EatMedicine",
+    "salt": "23333"
 }

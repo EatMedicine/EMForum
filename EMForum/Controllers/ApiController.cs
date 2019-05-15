@@ -43,6 +43,18 @@ namespace EMForum.Controllers
             bool IsSuccess = SqlHelper.Insert<userInfo>(info);
             return Json(IsSuccess, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult LoginIn(string username,string password)
+        {
+            userInfo[] data = SqlHelper.GetInfo<userInfo, int>(x => x.name == username &&
+            x.psw == password, x => x.userId);
+            bool isSuccess;
+            if (data.Length != 0)
+                isSuccess = true;
+            else
+                isSuccess = false;
+            return Json(isSuccess, JsonRequestBehavior.AllowGet);
+        }
         //激活用户 返回是否激活成功
         [HttpPost]
         public JsonResult ActivateUser(string username)
@@ -57,10 +69,11 @@ namespace EMForum.Controllers
         }
         [HttpPost]
         //是否有这个用户
+        //有返回true 无返回false
         public JsonResult HaveUser(string username)
         {
             userInfo[] list = SqlHelper.GetInfo<userInfo, int>(u => u.name == username, a => a.userId);
-            return Json(list.Length == 0, JsonRequestBehavior.AllowGet);
+            return Json(!(list.Length == 0), JsonRequestBehavior.AllowGet);
         }
     }
 }
